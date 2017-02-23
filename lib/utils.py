@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import logging
+from pprint import pformat
 from flask_ask import statement, question, session
 from inspect import getargvalues, stack
 
@@ -14,9 +15,11 @@ def logArgvalues():
         args.update(args.pop(kwname, []))
 
         log.debug('===== FUNCTION -> [%s]' % (stack()[1][3], ))
-        log.debug('Args: %s - %s' % (posargs, args))
+        log.debug('Args: %s - %s' % (pformat(posargs), args))
         log.debug('session: %s' % (session.get('sessionId'), ))
         log.debug('user: %s' % (session.get('user', {}).get('userId'), ))
+        log.debug('attributes: %s' % (pformat(session.attributes), ))
+
 
 def doReprompt(text, reprompt='', joinText=True):
     if reprompt:
