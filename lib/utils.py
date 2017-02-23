@@ -18,6 +18,7 @@ def logArgvalues():
         log.debug('session: %s' % (session.get('sessionId'), ))
         log.debug('user: %s' % (session.get('user', {}).get('userId'), ))
 
+
 def doReprompt(text, reprompt='', joinText=True):
     if reprompt:
         log.debug('>>  "%s"  <<' % text)
