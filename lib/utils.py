@@ -23,6 +23,7 @@ def logArgvalues():
         log.log(logLevel, 'attributes: %s' % (pformat(session.attributes), ))
 
 
+
 def doReprompt(text, reprompt='', joinText=True):
     if reprompt:
         log.log(logLevel, '>>  "%s"  <<' % text)
