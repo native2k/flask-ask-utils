@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import logging
 from pprint import pformat
+import types
 from flask_ask import statement, question, session
 from inspect import getargvalues, stack
 
@@ -21,7 +22,6 @@ def logArgvalues():
         log.log(logLevel, 'session: %s' % (session.get('sessionId'), ))
         log.log(logLevel, 'user: %s' % (session.get('user', {}).get('userId'), ))
         log.log(logLevel, 'attributes: %s' % (pformat(session.attributes), ))
-
 
 
 def doReprompt(text, reprompt='', joinText=True):
@@ -44,3 +44,19 @@ def doSay(text):
     log.log(logLevel, '>>! "%s" !<<' % text)
     # return question(text.encode('utf-8'))
     return statement(text.encode('utf-8'))
+
+
+def toStr(value):
+    if isinstance(value, types.UnicodeType):
+        return value.encode('utf-8')
+    elif isinstance(value, types.StringType):
+        return value
+    raise ValueError('Cannot transform %s to Unicode' % (type(value)))
+
+
+def toUnicode(value):
+    if isinstance(value, types.StringType):
+        return unicode(value, 'utf8')
+    elif isinstance(value, types.UnicodeType):
+        return value
+    raise ValueError('Cannot transform %s to Unicode' % (type(value)))
